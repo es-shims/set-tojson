@@ -2,6 +2,7 @@
 
 var ES = require('es-abstract/es7');
 var define = require('define-properties');
+var isString = require('is-string');
 
 if (!ES.IsCallable(Set)) {
 	module.exports = new Error('Set.prototype.toJSON requires Set (either native, or polyfilled with es6-shim)');
@@ -9,6 +10,8 @@ if (!ES.IsCallable(Set)) {
 }
 
 var setValues = Set.prototype.values;
+var slice = Array.prototype.slice;
+var split = String.prototype.split;
 
 // polyfilled Sets with es6-shim might exist without for..of
 var iterateWithWhile = function (set, receive) {
@@ -16,8 +19,7 @@ var iterateWithWhile = function (set, receive) {
 	var next;
 	do {
 		next = values.next();
-		receive(next.value);
-	} while (!next.done);
+	} while (!next.done && receive(next.value));
 };
 
 var iterate = (function () {
@@ -33,7 +35,11 @@ var iterate = (function () {
 var setToJSONshim = function toJSON() {
 	ES.RequireObjectCoercible(this);
 	var values = [];
-	if (ES.IsCallable(Array.from)) {
+	if (Array.isArray(this)) {
+		values = slice.call(this);
+	} else if (isString(this)) {
+		values = split.call(this, '');
+	} else if (ES.IsCallable(Array.from)) {
 		values = Array.from(this);
 	} else {
 		iterate(this, Array.prototype.push.bind(values));

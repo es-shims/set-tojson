@@ -33,7 +33,8 @@
 	],
 	"dependencies": {
 		"define-properties": "^1.0.1",
-		"es-abstract": "^1.2.1"
+		"es-abstract": "^1.2.1",
+		"is-string": "^1.0.4"
 	},
 	"devDependencies": {
 		"tape": "^4.0.0",
