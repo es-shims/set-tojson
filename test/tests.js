@@ -2,9 +2,11 @@ module.exports = function (toJSON, t) {
 	var sparseish = { length: 5, 0: 'a', 1: 'b' };
 	var overfullarrayish = { length: 2, 0: 'a', 1: 'b', 2: 'c' };
 	var arr = [1, 2, 3];
-	var set = new Set(arr);
+	var set = new Set(); // Some engines’ native Sets can’t take an iterable
+	arr.forEach(function (x) { set.add(x); });
 	var entries = [[1, 2], [3, 4]];
-	var map = new Map(entries);
+	var map = new Map(); // Some engines’ native Maps can’t take an iterable
+	entries.forEach(function (entry) { map.set(entry[0], entry[1]); });
 
 	t.test('Sets', function (st) {
 		st.deepEqual(toJSON(set), arr, '`new Set(iterable)` toJSONs to similar Array');
