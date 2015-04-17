@@ -1,13 +1,20 @@
-var toJSON = require('../');
-toJSON.shim();
-
 var test = require('tape');
 var defineProperties = require('define-properties');
 var bind = require('function-bind');
 var isEnumerable = Object.prototype.propertyIsEnumerable;
+var isCallable = require('es-abstract/es7').IsCallable;
 var functionsHaveNames = function f() {}.name === 'f';
+var hasSets = typeof Set !== 'undefined' && isCallable(Set);
 
-test('shimmed', function (t) {
+var toJSON = require('../');
+
+test('no Sets', { skip: hasSets }, function (t) {
+	t.throws(toJSON.shim, TypeError, 'shim method throws when Set doesn’t exist');
+	t.end();
+});
+
+test('shimmed', { skip: !hasSets }, function (t) {
+	toJSON.shim();
 	t.equal(Set.prototype.toJSON.length, 0, 'Set#toJSON has the right arity');
 	t.test('Function name', { skip: !functionsHaveNames }, function (st) {
 		st.equal(Set.prototype.toJSON.name, 'toJSON', 'Set#toJSON has name "toJSON"');
