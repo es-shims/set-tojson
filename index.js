@@ -4,12 +4,10 @@ var ES = require('es-abstract/es7');
 var define = require('define-properties');
 var isString = require('is-string');
 
-if (!ES.IsCallable(Set)) {
-	module.exports = new Error('Set.prototype.toJSON requires Set (either native, or polyfilled with es6-shim)');
-	return;
-}
+var hasSets = typeof Set !== 'undefined' && ES.IsCallable(Set);
 
-var setValues = Set.prototype.values;
+var setValues;
+if (hasSets) { setValues = Set.prototype.values; }
 var slice = Array.prototype.slice;
 var split = String.prototype.split;
 
@@ -32,6 +30,12 @@ var iterate = (function () {
 	return iterateWithWhile;
 }());
 
+var requireSet = function requireSet() {
+	if (!hasSets) {
+		throw new TypeError('Set.prototype.toJSON requires Set (either native, or polyfilled with es6-shim)');
+	}
+};
+
 var setToJSONshim = function toJSON() {
 	ES.RequireObjectCoercible(this);
 	var values = [];
@@ -41,8 +45,10 @@ var setToJSONshim = function toJSON() {
 		values = split.call(this, '');
 	} else if (ES.IsCallable(Array.from)) {
 		values = Array.from(this);
-	} else {
+	} else if (hasSets) {
 		iterate(this, Array.prototype.push.bind(values));
+	} else {
+		requireSet();
 	}
 	return values;
 };
@@ -54,6 +60,7 @@ var boundSetToJSON = function setToJSON(set) {
 define(boundSetToJSON, {
 	method: setToJSONshim,
 	shim: function shimSetPrototypeToJSON() {
+		requireSet();
 		define(Set.prototype, {
 			toJSON: setToJSONshim
 		});
