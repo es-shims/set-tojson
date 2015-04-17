@@ -1,4 +1,3 @@
-require('es6-shim');
 var toJSON = require('../');
 toJSON.shim();
 
