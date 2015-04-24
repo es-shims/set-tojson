@@ -132,6 +132,7 @@
 		"no-warning-comments": [0, { "terms": ["todo", "fixme", "xxx"], "location": "start" }],
 		"no-with": [2],
 		"no-wrap-func": [2],
+		"object-shorthand": [2, "never"],
 		"one-var": [0],
 		"operator-assignment": [0, "always"],
 		"operator-linebreak": [2, "after"],
