@@ -2,14 +2,12 @@
 
 var ES = require('es-abstract/es7');
 var define = require('define-properties');
-var isString = require('is-string');
 
 var hasSets = typeof Set !== 'undefined' && ES.IsCallable(Set);
 
 var setValues;
 if (hasSets) { setValues = Set.prototype.values; }
-var slice = Array.prototype.slice;
-var split = String.prototype.split;
+var push = Array.prototype.push;
 
 // polyfilled Sets with es6-shim might exist without for..of
 var iterateWithWhile = function (set, receive) {
@@ -23,7 +21,7 @@ var iterateWithWhile = function (set, receive) {
 var iterate = (function () {
 	try {
 		// Safari 8's native Set can't be iterated except with for..of
-		return Function('set', 'receive', 'for (var value of set) { receive(value); }');
+		return Function('setValues', 'set', 'receive', 'for (var value of setValues.call(set)) { receive(value); }').bind(null, setValues);
 	} catch (e) {
 		/* for..of seems to not be supported */
 	}
@@ -38,18 +36,9 @@ var requireSet = function requireSet() {
 
 var setToJSONshim = function toJSON() {
 	ES.RequireObjectCoercible(this);
+	requireSet();
 	var values = [];
-	if (Array.isArray(this)) {
-		values = slice.call(this);
-	} else if (isString(this)) {
-		values = split.call(this, '');
-	} else if (ES.IsCallable(Array.from)) {
-		values = Array.from(this);
-	} else if (hasSets) {
-		iterate(this, Array.prototype.push.bind(values));
-	} else {
-		requireSet();
-	}
+	iterate(this, push.bind(values));
 	return values;
 };
 
