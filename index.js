@@ -56,4 +56,5 @@ define(boundSetToJSON, {
 		return Set.prototype.toJSON;
 	}
 });
+
 module.exports = boundSetToJSON;
