@@ -1,3 +1,5 @@
+'use strict';
+
 var isCallable = require('es-abstract/es7').IsCallable;
 var hasSets = typeof Set !== 'undefined' && isCallable(Set);
 var hasMaps = typeof Map !== 'undefined' && isCallable(Map);
