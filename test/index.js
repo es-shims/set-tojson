@@ -2,6 +2,7 @@
 
 var toJSON = require('../');
 var test = require('tape');
+var runTests = require('./tests');
 
 test('as a function', function (t) {
 	t.test('bad Set/this value', function (st) {
@@ -10,7 +11,7 @@ test('as a function', function (t) {
 		st.end();
 	});
 
-	require('./tests')(toJSON, t);
+	runTests(toJSON, t);
 
 	t.end();
 });

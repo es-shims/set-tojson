@@ -9,6 +9,7 @@ var functionsHaveNames = function f() {}.name === 'f';
 var hasSets = typeof Set !== 'undefined' && isCallable(Set);
 
 var toJSON = require('../');
+var runTests = require('./tests');
 
 test('no Sets', { skip: hasSets }, function (t) {
 	t.throws(toJSON.shim, TypeError, 'shim method throws when Set doesn’t exist');
@@ -36,7 +37,7 @@ test('shimmed', { skip: !hasSets }, function (t) {
 		st.end();
 	});
 
-	require('./tests')(bind.call(Function.call, Set.prototype.toJSON), t);
+	runTests(bind.call(Function.call, Set.prototype.toJSON), t);
 
 	t.end();
 });
