@@ -6,7 +6,9 @@ var define = require('define-properties');
 var hasSets = typeof Set !== 'undefined' && ES.IsCallable(Set);
 
 var setValues;
-if (hasSets) { setValues = Set.prototype.values; }
+if (hasSets) {
+	setValues = Set.prototype.values;
+}
 var push = Array.prototype.push;
 
 // polyfilled Sets with es6-shim might exist without for..of
@@ -28,7 +30,7 @@ var iterate = (function () {
 	return iterateWithWhile;
 }());
 
-var requireSet = function requireSet() {
+var requireSet = function requireGlobalSet() {
 	if (!hasSets) {
 		throw new TypeError('Set.prototype.toJSON requires Set (either native, or polyfilled with es6-shim)');
 	}

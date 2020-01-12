@@ -18,14 +18,14 @@ module.exports = function (toJSON, t) {
 		var entries = [[1, 2], [3, 4]];
 		var map = new Map(); // Some engines’ native Maps can’t take an iterable
 		entries.forEach(function (entry) { map.set(entry[0], entry[1]); });
-		st.throws(function () { return toJSON(map); }, TypeError, 'Maps do not have a [[SetData]] internal slot');
+		st['throws'](function () { return toJSON(map); }, TypeError, 'Maps do not have a [[SetData]] internal slot');
 		st.end();
 	});
 
 	t.test('non-Sets', function (st) {
-		st.throws(function () { return toJSON([]); }, TypeError, 'Arrays do not have a [[SetData]] internal slot');
-		st.throws(function () { return toJSON({}); }, TypeError, 'Objects do not have a [[SetData]] internal slot');
-		st.throws(function () { return toJSON(''); }, TypeError, 'Strings do not have a [[SetData]] internal slot');
+		st['throws'](function () { return toJSON([]); }, TypeError, 'Arrays do not have a [[SetData]] internal slot');
+		st['throws'](function () { return toJSON({}); }, TypeError, 'Objects do not have a [[SetData]] internal slot');
+		st['throws'](function () { return toJSON(''); }, TypeError, 'Strings do not have a [[SetData]] internal slot');
 		st.end();
 	});
 };

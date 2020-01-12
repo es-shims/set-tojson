@@ -12,7 +12,7 @@ var toJSON = require('../');
 var runTests = require('./tests');
 
 test('no Sets', { skip: hasSets }, function (t) {
-	t.throws(toJSON.shim, TypeError, 'shim method throws when Set doesn’t exist');
+	t['throws'](toJSON.shim, TypeError, 'shim method throws when Set doesn’t exist');
 	t.end();
 });
 
@@ -32,8 +32,8 @@ test('shimmed', { skip: !hasSets }, function (t) {
 	var supportsStrictMode = (function () { return typeof this === 'undefined'; }());
 
 	t.test('bad array/this value', { skip: !supportsStrictMode }, function (st) {
-		st.throws(function () { return toJSON(undefined, 'a'); }, TypeError, 'undefined is not an object');
-		st.throws(function () { return toJSON(null, 'a'); }, TypeError, 'null is not an object');
+		st['throws'](function () { return toJSON(undefined, 'a'); }, TypeError, 'undefined is not an object');
+		st['throws'](function () { return toJSON(null, 'a'); }, TypeError, 'null is not an object');
 		st.end();
 	});
 
