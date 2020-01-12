@@ -9,7 +9,8 @@
 	"license": "MIT",
 	"main": "index.js",
 	"scripts": {
-		"test": "npm run lint && npm run test:module && npm run test:module:es6-shim && npm run test:shimmed && npm run test:shimmed:es6-shim",
+		"pretest": "npm run lint",
+		"test": "npm run test:module && npm run test:module:es6-shim && npm run test:shimmed && npm run test:shimmed:es6-shim",
 		"posttest": "npx aud",
 		"test:module": "node --es-staging test/index.js",
 		"test:module:es6-shim": "node --es-staging test/index-es6.js",
@@ -18,7 +19,8 @@
 		"coverage": "covert test/*.js",
 		"coverage-quiet": "covert test/*.js --quiet",
 		"lint": "eslint .",
-		"eccheck": "editorconfig-tools check *.js **/*.js > /dev/null",
+		"postlint": "npm run eccheck",
+		"eccheck": "eclint check *.js **/*.js > /dev/null",
 		"version": "auto-changelog && git add CHANGELOG.md",
 		"postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
 	},
@@ -44,7 +46,7 @@
 		"@ljharb/eslint-config": "^1.3.0",
 		"auto-changelog": "^1.16.2",
 		"covert": "^1.1.0",
-		"editorconfig-tools": "^0.1.1",
+		"eclint": "^2.8.1",
 		"es6-shim": "^0.33.6",
 		"eslint": "^1.6.0",
 		"function-bind": "^1.0.2",
