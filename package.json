@@ -50,8 +50,6 @@
 		"es6-shim": "^0.33.6",
 		"eslint": "^1.6.0",
 		"function-bind": "^1.0.2",
-		"replace": "^0.3.0",
-		"semver": "^5.0.3",
 		"tape": "^4.6.3"
 	},
 	"testling": {
