@@ -1,9 +1,10 @@
 'use strict';
 
-var ES = require('es-abstract/es7');
+var IsCallable = require('es-abstract/2019/IsCallable');
+var RequireObjectCoercible = require('es-abstract/2019/RequireObjectCoercible');
 var define = require('define-properties');
 
-var hasSets = typeof Set !== 'undefined' && ES.IsCallable(Set);
+var hasSets = typeof Set !== 'undefined' && IsCallable(Set);
 
 var setValues;
 if (hasSets) {
@@ -37,7 +38,7 @@ var requireSet = function requireGlobalSet() {
 };
 
 var setToJSONshim = function toJSON() {
-	ES.RequireObjectCoercible(this);
+	RequireObjectCoercible(this);
 	requireSet();
 	var values = [];
 	iterate(this, push.bind(values));
@@ -45,7 +46,7 @@ var setToJSONshim = function toJSON() {
 };
 
 var boundSetToJSON = function setToJSON(set) {
-	ES.RequireObjectCoercible(set);
+	RequireObjectCoercible(set);
 	return setToJSONshim.call(set);
 };
 define(boundSetToJSON, {
