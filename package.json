@@ -20,7 +20,9 @@
 		"jscs": "jscs test/*.js *.js",
 		"eslint": "eslint test/*.js *.js",
 		"eccheck": "editorconfig-tools check *.js **/*.js > /dev/null",
-		"security": "nsp package"
+		"security": "nsp package",
+		"version": "auto-changelog && git add CHANGELOG.md",
+		"postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
 	},
 	"repository": {
 		"type": "git",
@@ -42,6 +44,7 @@
 	},
 	"devDependencies": {
 		"@ljharb/eslint-config": "^1.3.0",
+		"auto-changelog": "^1.16.2",
 		"covert": "^1.1.0",
 		"editorconfig-tools": "^0.1.1",
 		"es6-shim": "^0.33.6",
@@ -73,5 +76,12 @@
 	},
 	"engines": {
 		"node": ">= 0.4"
+	},
+	"auto-changelog": {
+		"output": "CHANGELOG.md",
+		"template": "keepachangelog",
+		"unreleased": false,
+		"commitLimit": false,
+		"backfillLimit": false
 	}
 }
