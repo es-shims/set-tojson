@@ -8,9 +8,7 @@
 
 [![npm badge][11]][1]
 
-[![browser support][9]][10]
-
-ES7 Proposal: Set#toJSON https://github.com/DavidBruant/Map-Set.prototype.toJSON
+Rejected ESNext Proposal: Set#toJSON https://github.com/DavidBruant/Map-Set.prototype.toJSON
 
 This polyfill is spec-compliant (based on the spec so far).
 It will work in every engine in which Set exists natively, or where it is polyfilled with the (es6-shim)[es6-shim-url]
@@ -43,15 +41,13 @@ assert.deepEqual(new Set().toJSON(), []);
 Simply clone the repo, `npm install`, and run `npm test`
 
 [1]: https://npmjs.org/package/set-tojson
-[2]: http://versionbadg.es/ljharb/set-tojson.svg
-[3]: https://travis-ci.org/ljharb/set-tojson.svg
-[4]: https://travis-ci.org/ljharb/set-tojson
-[5]: https://david-dm.org/ljharb/set-tojson.svg
-[6]: https://david-dm.org/ljharb/set-tojson
-[7]: https://david-dm.org/ljharb/set-tojson/dev-status.svg
-[8]: https://david-dm.org/ljharb/set-tojson#info=devDependencies
-[9]: https://ci.testling.com/ljharb/set-tojson.png
-[10]: https://ci.testling.com/ljharb/set-tojson
+[2]: http://versionbadg.es/es-shims/set-tojson.svg
+[3]: https://travis-ci.org/es-shims/set-tojson.svg
+[4]: https://travis-ci.org/es-shims/set-tojson
+[5]: https://david-dm.org/es-shims/set-tojson.svg
+[6]: https://david-dm.org/es-shims/set-tojson
+[7]: https://david-dm.org/es-shims/set-tojson/dev-status.svg
+[8]: https://david-dm.org/es-shims/set-tojson#info=devDependencies
 [11]: https://nodei.co/npm/set-tojson.png?downloads=true&stars=true
 [license-image]: http://img.shields.io/npm/l/set-tojson.svg
 [license-url]: LICENSE
