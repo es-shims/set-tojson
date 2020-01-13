@@ -1,40 +1,24 @@
 'use strict';
 
-var IsCallable = require('es-abstract/2019/IsCallable');
 var RequireObjectCoercible = require('es-abstract/2019/RequireObjectCoercible');
 var define = require('define-properties');
-var iterate = require('iterate-value');
-var callBound = require('es-abstract/helpers/callBound');
-var $setSize = callBound('%Set.prototype.size', true);
+var callBind = require('es-abstract/helpers/callBind');
 
-var hasSets = typeof Set !== 'undefined' && IsCallable(Set);
+var getPolyfill = require('./polyfill');
+var implementation = require('./implementation');
+var shim = require('./shim');
 
-var requireSet = function requireGlobalSet() {
-	if (!hasSets) {
-		throw new TypeError('Set.prototype.toJSON requires Set (either native, or polyfilled with es6-shim)');
-	}
-};
-
-var setToJSONshim = function toJSON() {
-	RequireObjectCoercible(this);
-	requireSet();
-	$setSize(this);
-	return iterate(this);
-};
+var bound = callBind(getPolyfill());
 
 var boundSetToJSON = function setToJSON(set) {
 	RequireObjectCoercible(set);
-	return setToJSONshim.call(set);
+	return bound(set);
 };
 define(boundSetToJSON, {
-	method: setToJSONshim,
-	shim: function shimSetPrototypeToJSON() {
-		requireSet();
-		define(Set.prototype, {
-			toJSON: setToJSONshim
-		});
-		return Set.prototype.toJSON;
-	}
+	getPolyfill: getPolyfill,
+	implementation: implementation,
+	method: implementation, // TODO: remove at semver-major
+	shim: shim
 });
 
 module.exports = boundSetToJSON;

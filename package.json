@@ -19,6 +19,7 @@
 		"test:shimmed": "node --es-staging test/shimmed.js",
 		"test:shimmed:es6-shim": "node --es-staging test/shimmed-es6.js",
 		"coverage": "covert test/*.js",
+		"prelint": "es-shim-api --bound",
 		"lint": "eslint .",
 		"postlint": "npm run eccheck",
 		"eccheck": "eclint check *.js **/*.js > /dev/null",
@@ -45,6 +46,7 @@
 		"iterate-value": "^1.0.1"
 	},
 	"devDependencies": {
+		"@es-shims/api": "^2.1.2",
 		"@ljharb/eslint-config": "^15.1.0",
 		"auto-changelog": "^1.16.2",
 		"covert": "^1.1.1",
