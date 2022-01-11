@@ -8,6 +8,6 @@
 		"max-nested-callbacks": [2, 3],
 		"new-cap": [2, { "capIsNewExceptions": ["GetIntrinsic", "IsCallable", "RequireObjectCoercible"] }],
 		"no-invalid-this": [1],
-		"no-new-func": [1]
-	}
+		"no-new-func": [1],
+	},
 }
