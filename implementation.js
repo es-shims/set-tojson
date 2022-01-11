@@ -1,6 +1,6 @@
 'use strict';
 
-var RequireObjectCoercible = require('es-abstract/2019/RequireObjectCoercible');
+var RequireObjectCoercible = require('es-abstract/2021/RequireObjectCoercible');
 var iterate = require('iterate-value');
 var callBound = require('es-abstract/helpers/callBound');
 var $setSize = callBound('%Set.prototype.size', true);
