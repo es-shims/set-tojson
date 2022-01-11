@@ -18,7 +18,7 @@ test('no Sets', { skip: $Set }, function (t) {
 });
 
 test('shimmed', { skip: !$Set }, function (t) {
-	toJSON.shim();
+	require('../auto'); // eslint-disable-line global-require
 	t.equal(Set.prototype.toJSON.length, 0, 'Set#toJSON has the right arity');
 	t.test('Function name', { skip: !functionsHaveNames }, function (st) {
 		st.equal(Set.prototype.toJSON.name, 'toJSON', 'Set#toJSON has name "toJSON"');
