@@ -21,8 +21,7 @@
 		"coverage": "covert test/*.js",
 		"prelint": "es-shim-api --bound",
 		"lint": "eslint .",
-		"postlint": "npm run eccheck",
-		"eccheck": "eclint check *.js **/*.js > /dev/null",
+		"postlint": "eclint check $(git ls-files | xargs find 2> /dev/null | grep -vE 'node_modules|\\.git')",
 		"version": "auto-changelog && git add CHANGELOG.md",
 		"postversion": "auto-changelog && git add CHANGELOG.md && git commit --no-edit --amend && git tag -f \"v$(node -e \"console.log(require('./package.json').version)\")\""
 	},
