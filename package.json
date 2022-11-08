@@ -37,8 +37,10 @@
 		"serialization"
 	],
 	"dependencies": {
-		"define-properties": "^1.1.3",
-		"es-abstract": "^1.19.1",
+		"call-bind": "^1.0.2",
+		"define-properties": "^1.1.4",
+		"es-abstract": "^1.20.4",
+		"get-intrinsic": "^1.1.3",
 		"iterate-value": "^1.0.2"
 	},
 	"devDependencies": {

@@ -2,9 +2,9 @@
 
 var test = require('tape');
 var defineProperties = require('define-properties');
-var callBind = require('es-abstract/helpers/callBind');
+var callBind = require('call-bind');
 var isEnumerable = Object.prototype.propertyIsEnumerable;
-var GetIntrinsic = require('es-abstract/GetIntrinsic');
+var GetIntrinsic = require('get-intrinsic');
 var $Set = GetIntrinsic('%Set%', true);
 var functionsHaveNames = require('functions-have-names')();
 var hasStrictMode = require('has-strict-mode')();
